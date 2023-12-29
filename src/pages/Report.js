@@ -1,4 +1,5 @@
 import TimeSeries from "../components/TimeSeries"
+import BarChart from "../components/BarChart"
 export default function Report({data}){
     let daily_adj_close = data.map(row=>{
         return {date:row.date, value:row.adj_close}
@@ -39,7 +40,7 @@ export default function Report({data}){
     const monthly_return = filterFirstDayOfMonth(daily_return)
     const quartely_return = filterFirstDayOfQuarter(daily_return)
     const yearly_return = filterFirstDayOfYear(daily_return)
-    console.log(yearly_return)
+
     return(
         <div>
             <h1>tesla adjusted close stock price over time</h1>
@@ -47,11 +48,11 @@ export default function Report({data}){
             <h1>tesla daily return</h1>
             <TimeSeries df={daily_return} width={1000} height={500}/>
             <h1>tesla monthly return</h1>
-            <TimeSeries df={monthly_return} width={1000} height={500}/>
+            <BarChart df={monthly_return} width={1000} height={500}/>
             <h1>tesla quarterly return</h1>
-            <TimeSeries df={quartely_return} width={1000} height={500}/>
+            <BarChart df={quartely_return} width={1000} height={500}/>
             <h1>tesla yearly return</h1>
-            <TimeSeries df={yearly_return} width={1000} height={500}/>
+            <BarChart df={yearly_return} width={1000} height={500}/>
         </div>
     )
 }
