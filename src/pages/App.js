@@ -5,19 +5,20 @@ import Report from './Report';
 
 function App() {
   const [data, setData] = useState(null)
-  const parseTime = timeParse('%Y-%m-%d')
-  const rowConverter = row=>{
-    return {
-      date: parseTime(row['Date']),
-      adj_close: +row['Adj Close'],
-      close: +row['Close'],
-      high: +row['High'],
-      low: +row['Low'],
-      open: +row['Open'],
-      volume: +row['Volume']
-    }
-  }
+
   useEffect(()=>{
+    const parseTime = timeParse('%Y-%m-%d')
+    const rowConverter = row=>{
+      return {
+        date: parseTime(row['Date']),
+        adj_close: +row['Adj Close'],
+        close: +row['Close'],
+        high: +row['High'],
+        low: +row['Low'],
+        open: +row['Open'],
+        volume: +row['Volume']
+      }
+    }
     csv(
         'https://raw.githubusercontent.com/DaliDalmas/tesla-returns-visuals/main/data/TSLA.csv',
         rowConverter

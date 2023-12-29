@@ -1,25 +1,23 @@
 import * as d3 from 'd3'
 import { useRef, useEffect } from 'react'
 export default function BarChart({df, width, height}){
+    const convertToMonthYear = date=>{
+        const options = {year: 'numeric', month:'long'}
+        return date.toLocaleDateString(undefined, options)
+    }
+
+    df = df.filter(row=>row.date!==undefined)
+    df = df.map(row=>{
+        return {
+            label:convertToMonthYear(row.date),
+            value:row.value
+        }
+    })
+
     const svgRef = useRef()
 
     useEffect(()=>{
         if (!df||df.length===0) return;
-
-        const convertToMonthYear = date=>{
-            const options = {year: 'numeric', month:'long'}
-            return date.toLocaleDateString(undefined, options)
-        }
-
-        df = df.filter(row=>row.date!==undefined)
- 
-        df = df.map(row=>{
-            return {
-                label:convertToMonthYear(row.date),
-                value:row.value
-            }
-        })
- 
         const svg = d3.select(svgRef.current)
         svg.selectAll('*').remove()
 
