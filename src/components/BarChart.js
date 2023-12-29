@@ -48,7 +48,7 @@ export default function BarChart({df, width, height}){
             .attr('y', d => d.value>=0 ? yScale(d.value) : innerHeight/2)
             .attr('width', xScale.bandwidth())
             .attr('height', d => d.value>=0 ? innerHeight/2 - yScale(d.value) : innerHeight/2-yScale(Math.abs(d.value))) 
-            .attr('fill', 'gray')
+            .attr('fill', d => d.value>=0?'green':'red')
             .attr('stroke', 'black')
   
          
