@@ -9,7 +9,7 @@ function App() {
   const rowConverter = row=>{
     return {
       date: parseTime(row['Date']),
-      adj_close: +row['Adj Clos'],
+      adj_close: +row['Adj Close'],
       close: +row['Close'],
       high: +row['High'],
       low: +row['Low'],
