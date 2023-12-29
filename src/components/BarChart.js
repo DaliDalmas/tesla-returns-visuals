@@ -12,7 +12,6 @@ export default function BarChart({df, width, height}){
         }
 
         df = df.filter(row=>row.date!==undefined)
-        console.log(df)
  
         df = df.map(row=>{
             return {
@@ -20,7 +19,7 @@ export default function BarChart({df, width, height}){
                 value:row.value
             }
         })
-
+ 
         const svg = d3.select(svgRef.current)
         svg.selectAll('*').remove()
 
@@ -48,20 +47,20 @@ export default function BarChart({df, width, height}){
             .enter()
             .append('rect')
             .attr('x', d => xScale(d.label))
-            .attr('y', d => yScale(d.value))
+            .attr('y', d => d.value>=0 ? yScale(d.value) : innerHeight/2)
             .attr('width', xScale.bandwidth())
-            .attr('height', d => innerHeight/2 - yScale(d.value))
+            .attr('height', d => d.value>=0 ? innerHeight/2 - yScale(d.value) : innerHeight/2-yScale(Math.abs(d.value))) 
             .attr('fill', 'gray')
             .attr('stroke', 'black')
-
-        
+  
+         
         g.append('g')
-            
             .attr('transform', `translate(${0},${innerHeight/2})`)
             .call(d3.axisBottom(xScale))
             .selectAll('text')
-            .style('text-anchor', 'end')
-            .attr('transform', 'rotate(-90)');
+                .style('text-anchor', 'end')
+                .style('text-align', 'center')
+                .attr('transform', 'rotate(-90)'); 
         
         g.append('g')
             .call(d3.axisLeft(yScale))
